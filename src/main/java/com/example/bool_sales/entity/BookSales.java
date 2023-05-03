@@ -19,7 +19,7 @@ public class BookSales {
   private int price;
 
   @Column(name = "inventory")
-  private String inventory;
+  private int inventory;
 
   @Column(name = "sales")
   private int sales;
@@ -31,7 +31,7 @@ public class BookSales {
   public BookSales() {
   }
 
-  public BookSales(String title, String isbn, String author, int price, String inventory, int sales, String category) {
+  public BookSales(String title, String isbn, String author, int price, int inventory, int sales, String category) {
     this.title = title;
     this.isbn = isbn;
     this.author = author;
@@ -73,11 +73,11 @@ public class BookSales {
     this.price = price;
   }
 
-  public String getInventory() {
+  public int getInventory() {
     return inventory;
   }
 
-  public void setInventory(String inventory) {
+  public void setInventory(int inventory) {
     this.inventory = inventory;
   }
 

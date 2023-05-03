@@ -1,8 +1,8 @@
-package com.example.course_select_system.constants;
+package com.example.bool_sales.constants;
 
 public enum RtnCode {
 
-  ADD_COURSE_SUCCESS("200", "新增課程成功"),
+  ADD_BOOK_SUCCESS("200", "新增書本成功"),
   ADD_STUDENT_SUCCESS("200", "新增學生成功"),
   DELETE_COURSE_SUCCESS("200", "課程刪除成功"),
   DELETE_STUDENT_SUCCESS("200", "學生刪除成功"),
@@ -16,15 +16,15 @@ public enum RtnCode {
   COURSE_CODE_ERROR("400", "輸入課程代碼錯誤"),
   COURSE_FULL_ERROR("400", "該課程已滿"),
   COURSE_NOT_FOUND_ERROR("404", "找不到該課程"),
-  CREDIT_OVER_LIMIT_ERROR("400", "無法加選，學分超過"),
+  INVENTORY_OVER_LIMIT_ERROR("400", "庫存不夠，無法購買"),
   DUPLICATE_COURSE_ERROR("400", "課程重複"),
   DUPLICATE_COURSE_TIME_ERROR("400", "已選修同時段課程"),
   DUPLICATE_STUDENT_ID_ERROR("400", "已有相同ID學生註冊"),
-  INCORRECT_COURSE_INFO_ERROR("400", "設定課程資訊不正確"),
+  INCORRECT_BOOK_INFO_ERROR("400", "設定書本資訊不正確"),
   INPUT_EMPTY_VALUE_ERROR("400", "輸入值為空"),
   INPUT_NOT_ALLOWED_BLANK_ERROR("400", "輸入不得為空白"),
-  NO_COURSE_FOUND_ERROR("400", "無找到課程"),
-  NO_SAME_COURSE_ERROR("400", "無同名課程"),
+  NO_BOOK_FOUND_ERROR("400", "無相關書籍"),
+  NO_SAME_CATEGORY_ERROR("400", "無同名課程"),
   NOT_SELECTED_ERROR("400", "您沒有選修該門課"),
   STUDENT_NOT_EXIST_ERROR("400", "學生不存在");
 
