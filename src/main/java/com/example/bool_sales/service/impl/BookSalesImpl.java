@@ -178,7 +178,7 @@ public class BookSalesImpl implements BookSalesService {
     for (Object[] obj : temp) {
       StringBuilder str = new StringBuilder();
       for (Object o : obj) {
-        str.append(o).append(" ");
+        str.append(o);
       }
       stringList.add(str.toString());
     }
