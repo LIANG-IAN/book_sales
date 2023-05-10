@@ -5,6 +5,8 @@ import com.example.bool_sales.entity.BookSales;
 import com.example.bool_sales.repository.BookSalesDao;
 import com.example.bool_sales.service.ifs.BookSalesService;
 import com.example.bool_sales.vo.BookSalesResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Service
 public class BookSalesImpl implements BookSalesService {
+
+  private Logger logger = LoggerFactory.getLogger(getClass()); //slf4j
 
   @Autowired
   BookSalesDao bookSalesDao;

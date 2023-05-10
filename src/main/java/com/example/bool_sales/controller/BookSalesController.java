@@ -1,6 +1,5 @@
 package com.example.bool_sales.controller;
 
-import com.example.bool_sales.entity.BookSales;
 import com.example.bool_sales.service.ifs.BookSalesService;
 import com.example.bool_sales.vo.BookSalesRequest;
 import com.example.bool_sales.vo.BookSalesResponse;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 public class BookSalesController {
 
