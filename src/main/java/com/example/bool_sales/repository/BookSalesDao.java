@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Repository
@@ -28,16 +29,16 @@ public interface BookSalesDao extends JpaRepository<BookSales, String> {
   );
 
   @Query(value = "select title,isbn,author,price,inventory from book_sales where category like %:category%", nativeQuery = true)
-  public List<Object[]> findBooksByCategory(
+  public List<Map<String,Object>> findBooksByCategory(
           @Param("category") String category
 
   );
   @Query(value = "select title,isbn,author,price,inventory,sales from book_sales where title = :keyWord or isbn = :keyWord or author = :keyWord", nativeQuery = true)
-  public List<Object[]> booksellerFindByTitleOrIsbnOrAuthor(
+  public List<Map<String,Object>> booksellerFindByTitleOrIsbnOrAuthor(
           @Param("keyWord") String keyWord
   );
   @Query(value = "select title,isbn,author,price from book_sales where title = :keyWord or isbn = :keyWord or author = :keyWord", nativeQuery = true)
-  public List<Object[]> consumerFindByTitleOrIsbnOrAuthor(
+  public List<Map<String,Object>> consumerFindByTitleOrIsbnOrAuthor(
           @Param("keyWord") String keyWord
   );
 
@@ -70,13 +71,13 @@ public interface BookSalesDao extends JpaRepository<BookSales, String> {
 
   @Query(value = "select title, isbn, author, price, inventory from book_sales where title = :title",
           nativeQuery = true)
-  List<Object[]> findBookInfoByTitle(
+  List<Map<String,Object>> findBookInfoByTitle(
           @Param("title") String title
   );
 
   @Query(value = "select title, isbn, author, price, inventory, category from book_sales where title = :title",
           nativeQuery = true)
-  List<Object[]> findBookInfoByTitleReturnCategory(
+  List<Map<String,Object>> findBookInfoByTitleReturnCategory(
           @Param("title") String title
   );
 
@@ -90,11 +91,11 @@ public interface BookSalesDao extends JpaRepository<BookSales, String> {
   );
 
   @Query(value = "select title, isbn, author, price, :count, (price * :count) as total_price from book_sales where title = :title",nativeQuery = true)
-  public List<Object[]> buyBook(
+  public List<Map<String,Object>> buyBook(
           @Param("title") String title,
           @Param("count") int count
   );
 
   @Query(value = "select title,isbn,author,price from book_sales order by sales desc limit 5",nativeQuery = true)
-  public List<Object[]> showTop5Sales();
+  public List<Map<String,Object>> showTop5Sales();
 }

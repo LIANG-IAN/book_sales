@@ -14,6 +14,8 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class BookSalesImpl implements BookSalesService {
@@ -50,13 +52,13 @@ public class BookSalesImpl implements BookSalesService {
       return new BookSalesResponse(RtnCode.INCORRECT_BOOK_INFO_ERROR.getMessage());
     }
     // 檢查該分類是否有書籍存在
-    List<Object[]> bookSalesList = bookSalesDao.findBooksByCategory(category);
+    List<Map<String,Object>> bookSalesList = bookSalesDao.findBooksByCategory(category);
     if (CollectionUtils.isEmpty(bookSalesList)) {
       return new BookSalesResponse(RtnCode.NO_SAME_CATEGORY_ERROR.getMessage());
     }
     // 將相符的書的資訊取出並合成字串
     // 放入集合批次回傳
-    List<String> bookList = objectArrayToString(bookSalesList);
+    List<String> bookList = mapArrayToString(bookSalesList);
     return new BookSalesResponse(bookList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
@@ -70,23 +72,23 @@ public class BookSalesImpl implements BookSalesService {
     List<String> bookList;
     // 判斷使用者身分，true為書商、false為消費者
     if (identity) {
-      List<Object[]> temp = bookSalesDao.booksellerFindByTitleOrIsbnOrAuthor(keyWord);
+      List<Map<String,Object>> temp = bookSalesDao.booksellerFindByTitleOrIsbnOrAuthor(keyWord);
       // 判斷是否有相關書籍
       if (CollectionUtils.isEmpty(temp)) {
         return new BookSalesResponse(RtnCode.NO_BOOK_FOUND_ERROR.getMessage());
       }
       // 將相符的書的資訊取出並合成字串
-      bookList = objectArrayToString(temp);
+      bookList = mapArrayToString(temp);
 
     }
     else {
-      List<Object[]> temp = bookSalesDao.consumerFindByTitleOrIsbnOrAuthor(keyWord);
+      List<Map<String,Object>> temp = bookSalesDao.consumerFindByTitleOrIsbnOrAuthor(keyWord);
       // 判斷是否有相關書籍
       if (CollectionUtils.isEmpty(temp)) {
         return new BookSalesResponse(RtnCode.NO_BOOK_FOUND_ERROR.getMessage());
       }
       // 將相符的書的資訊取出並合成字串
-      bookList = objectArrayToString(temp);
+      bookList = mapArrayToString(temp);
     }
     return new BookSalesResponse(bookList, RtnCode.FIND_SUCCESS.getMessage());
   }
@@ -98,13 +100,13 @@ public class BookSalesImpl implements BookSalesService {
       return new BookSalesResponse(RtnCode.INCORRECT_BOOK_INFO_ERROR.getMessage());
     }
     bookSalesDao.updateInventoryByTitle(title, newInventory);
-    List<Object[]> temp = bookSalesDao.findBookInfoByTitle(title);
+    List<Map<String,Object>> temp = bookSalesDao.findBookInfoByTitle(title);
     // 判斷是否有相關書籍
     if (CollectionUtils.isEmpty(temp)) {
       return new BookSalesResponse(RtnCode.NO_BOOK_FOUND_ERROR.getMessage());
     }
     // 將相符的書的資訊取出並合成字串
-    List<String> bookList = objectArrayToString(temp);
+    List<String> bookList = mapArrayToString(temp);
     return new BookSalesResponse(bookList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
@@ -115,13 +117,13 @@ public class BookSalesImpl implements BookSalesService {
       return new BookSalesResponse(RtnCode.INCORRECT_BOOK_INFO_ERROR.getMessage());
     }
     bookSalesDao.updatePriceByTitle(title, price);
-    List<Object[]> temp = bookSalesDao.findBookInfoByTitle(title);
+    List<Map<String,Object>> temp = bookSalesDao.findBookInfoByTitle(title);
     // 判斷是否有相關書籍
     if (CollectionUtils.isEmpty(temp)) {
       return new BookSalesResponse(RtnCode.NO_BOOK_FOUND_ERROR.getMessage());
     }
     // 將相符的書的資訊取出並合成字串
-    List<String> bookList = objectArrayToString(temp);
+    List<String> bookList = mapArrayToString(temp);
     return new BookSalesResponse(bookList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
@@ -132,13 +134,13 @@ public class BookSalesImpl implements BookSalesService {
       return new BookSalesResponse(RtnCode.INCORRECT_BOOK_INFO_ERROR.getMessage());
     }
     bookSalesDao.updateCategoryByTitle(title, category);
-    List<Object[]> temp = bookSalesDao.findBookInfoByTitleReturnCategory(title);
+    List<Map<String,Object>> temp = bookSalesDao.findBookInfoByTitleReturnCategory(title);
     // 判斷是否有相關書籍
     if (CollectionUtils.isEmpty(temp)) {
       return new BookSalesResponse(RtnCode.NO_BOOK_FOUND_ERROR.getMessage());
     }
     // 將相符的書的資訊取出並合成字串
-    List<String> bookList = objectArrayToString(temp);
+    List<String> bookList = mapArrayToString(temp);
     return new BookSalesResponse(bookList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
@@ -155,37 +157,37 @@ public class BookSalesImpl implements BookSalesService {
       return new BookSalesResponse(RtnCode.INVENTORY_OVER_LIMIT_ERROR.getMessage());
     }
     // 購買書籍並計算總價
-    List<Object[]> temp = bookSalesDao.buyBook(title,count);
+    List<Map<String,Object>> temp = bookSalesDao.buyBook(title,count);
     // 判斷是否有相關書籍
     if (CollectionUtils.isEmpty(temp)) {
       return new BookSalesResponse(RtnCode.NO_BOOK_FOUND_ERROR.getMessage());
     }
     // 將相符的書的資訊取出並合成字串
-    List<String> bookList = objectArrayToString(temp);
+    List<String> bookList = mapArrayToString(temp);
     return new BookSalesResponse(bookList, RtnCode.FIND_SUCCESS.getMessage());
   }
   @Override
   public BookSalesResponse showTop5Sales(){
     // 取得銷售額前五名的書
-    List<Object[]> temp = bookSalesDao.showTop5Sales();
+    List<Map<String,Object>> temp = bookSalesDao.showTop5Sales();
     // 判斷資料庫中是否有書
     if (CollectionUtils.isEmpty(temp)) {
       return new BookSalesResponse(RtnCode.NO_BOOK_FOUND_ERROR.getMessage());
     }
     // 將相符的書的資訊取出並合成字串
-    List<String> bookList = objectArrayToString(temp);
+    List<String> bookList = mapArrayToString(temp);
     return new BookSalesResponse(bookList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
-  private List<String> objectArrayToString(List<Object[]> temp) {
-    List<String> stringList = new ArrayList<>();
-    for (Object[] obj : temp) {
-      StringBuilder str = new StringBuilder();
-      for (Object o : obj) {
-        str.append(o);
+  private List<String> mapArrayToString(List<Map<String,Object>> temp) {
+    List<String> bookSalesList = new ArrayList<>();
+    for (Map<String, Object> map : temp) {
+      Set<String> keySet =map.keySet();
+      for (String s : keySet) {
+        bookSalesList.add(s+": ");
+        bookSalesList.add(map.get(s).toString());
       }
-      stringList.add(str.toString());
     }
-    return stringList;
+    return bookSalesList;
   }
 }
